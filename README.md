@@ -1,5 +1,8 @@
 # Dev Skill Forge
 
+[![CI](https://github.com/robert-laws/dev-skill-forge/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/robert-laws/dev-skill-forge/actions/workflows/ci.yml)
+[![Deploy to GitHub Pages](https://github.com/robert-laws/dev-skill-forge/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/robert-laws/dev-skill-forge/actions/workflows/deploy.yml)
+
 Dev Skill Forge is a focused front-end learning site built around 14 real interview questions.
 
 ## Mission
