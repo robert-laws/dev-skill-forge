@@ -1,0 +1,26 @@
+---
+interface Props {
+  total: number;
+}
+
+const { total } = Astro.props;
+---
+
+<section class="panel section-block progress-summary" data-progress-summary data-progress-total={total}>
+  <h2 class="section-title compact">Your Progress</h2>
+  <p>
+    <strong data-progress-completed>0</strong> of <strong>{total}</strong> modules complete
+    (<span data-progress-percent>0</span>%)
+  </p>
+  <div
+    class="progress-track"
+    data-progress-bar
+    role="progressbar"
+    aria-label="Learning progress"
+    aria-valuemin="0"
+    aria-valuemax="100"
+    aria-valuenow="0"
+  >
+    <div class="progress-fill" data-progress-fill style="width: 0%"></div>
+  </div>
+</section>

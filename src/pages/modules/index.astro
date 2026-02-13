@@ -1,0 +1,39 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProgressSummary from '../../components/progress/ProgressSummary.astro';
+
+const modules = (await getCollection('modules')).sort((a, b) => a.data.id - b.data.id);
+const withBase = (pathname: string) => `${import.meta.env.BASE_URL}${pathname.replace(/^\//, '')}`;
+
+const modulesByGroup = modules.reduce<Record<string, typeof modules>>((acc, entry) => {
+  const group = entry.data.group;
+  if (!acc[group]) {
+    acc[group] = [];
+  }
+  acc[group].push(entry);
+  return acc;
+}, {});
+---
+
+<BaseLayout title="All Modules | Dev Skill Forge">
+  <h1>Modules</h1>
+  <p>All 14 interview-driven modules are pre-wired. Initial entries are structured stubs for content authoring.</p>
+  <ProgressSummary total={modules.length} />
+
+  {Object.entries(modulesByGroup).map(([group, entries]) => (
+    <section>
+      <h2 class="section-title">{group}</h2>
+      <div class="card-grid">
+        {entries.map((entry) => (
+          <a class="card" href={withBase(`/modules/${entry.slug}`)}>
+            <span class="badge">Module {entry.data.id}</span>
+            <h3>{entry.data.title}</h3>
+            <p>{entry.data.question}</p>
+            <p class="card-status" data-module-status={entry.slug}>Not started</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  ))}
+</BaseLayout>

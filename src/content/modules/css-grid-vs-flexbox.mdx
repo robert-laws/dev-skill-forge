@@ -1,0 +1,119 @@
+---
+id: 5
+title: CSS Grid vs Flexbox Decision-Making
+question: Explain the difference between CSS Grid and Flexbox. When do you use which?
+group: CSS Fundamentals & Systems
+difficulty: Foundational
+interviewSignal: Evaluates layout fundamentals and practical decision quality.
+outcomes:
+  - Distinguish one-dimensional and two-dimensional layout models.
+  - Select layout tools based on content and behavior.
+  - Combine Grid and Flexbox intentionally in the same interface.
+keyConcepts:
+  - Use Grid for two-dimensional page or component regions.
+  - Use Flexbox for one-dimensional alignment and distribution within a row or column.
+  - Choose based on layout intent first, then optimize for maintainability.
+workflowSteps:
+  - Identify whether the layout problem is one-dimensional or two-dimensional.
+  - Sketch the layout regions and responsiveness requirements.
+  - Implement the primary container with Grid or Flexbox.
+  - Use the other system for nested alignment where it is stronger.
+  - Verify behavior at key breakpoints and with real content.
+practiceExercise: Build a dashboard shell with Grid for page regions and Flexbox for card header and action alignment.
+pitfalls:
+  - Forcing Flexbox to mimic full page grids with fragile width rules.
+  - Overcomplicating small component alignment with Grid where Flexbox is simpler.
+  - Ignoring intrinsic sizing and content overflow.
+quiz:
+  - question: You need a layout with header, sidebar, main content, and footer that repositions at tablet width. Which tool is usually the better first choice?
+    answer: Grid, because this is a two-dimensional region layout with explicit area relationships.
+    type: single
+    options:
+      - Flexbox
+      - Grid
+      - Floats
+  - question: What is a strong signal that Flexbox should be your first choice?
+    answer: The problem is primarily one-dimensional, such as distributing items in a row or column.
+    type: short
+    options: []
+  - question: Can Grid and Flexbox be used together in the same UI?
+    answer: Yes. A common pattern is Grid for macro layout and Flexbox inside components.
+    type: short
+    options: []
+  - question: Why should layout intent come before tool preference?
+    answer: Intent keeps the implementation predictable and maintainable as requirements evolve.
+    type: short
+    options: []
+  - question: What should you validate after selecting a layout system?
+    answer: Responsive behavior, real content states, overflow, and alignment under edge cases.
+    type: short
+    options: []
+furtherReading:
+  - label: "MDN: Basic concepts of grid layout"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout/Basic_concepts_of_grid_layout
+  - label: "MDN: Basic concepts of flexbox"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_flexible_box_layout/Basic_concepts_of_flexbox
+  - label: "CSS-Tricks: A Complete Guide to Grid"
+    url: https://css-tricks.com/snippets/css/complete-guide-grid/
+caseStudy:
+  title: Multi-Team Analytics Dashboard Layout
+  context: A dashboard needed stable page regions while allowing each team to ship independent widget cards.
+  challenge: Early implementation used Flexbox for everything and became hard to maintain as regions multiplied.
+  actions:
+    - Switched top-level layout to Grid with named areas for header, nav, insights, and details.
+    - Kept card-level alignment with Flexbox to simplify button and metadata spacing.
+    - Added a breakpoint map showing how grid areas collapse on tablet and mobile.
+    - Documented a rule of thumb for designers and engineers to keep layout decisions consistent.
+  result: Reduced layout regressions in release QA and improved implementation speed for new dashboard sections.
+visualAsset:
+  src: /visuals/grid-flex-decision-map.svg
+  alt: Decision map illustrating when to choose CSS Grid first versus Flexbox first.
+  caption: Choose by layout dimension first, then combine both tools where each is strongest.
+estimatedMinutes: 35
+quizCount: 5
+status: complete
+---
+
+## Core Explanation
+Grid and Flexbox solve different layout classes. Grid excels at defining two-dimensional relationships (rows and columns at once), while Flexbox excels at one-dimensional flow and alignment. In practice, high-quality front-end systems use both: Grid for page-level regions and Flexbox for internal component alignment.
+
+## Code Examples
+```css
+/* Two-dimensional shell with explicit areas */
+.dashboard {
+  display: grid;
+  grid-template-columns: 18rem minmax(0, 1fr);
+  grid-template-areas:
+    "nav header"
+    "nav content";
+  min-height: 100vh;
+  gap: 1rem;
+}
+
+.dashboard__nav {
+  grid-area: nav;
+}
+
+.dashboard__content {
+  grid-area: content;
+}
+```
+
+```css
+/* One-dimensional alignment inside a card header */
+.card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.card__actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+```
+
+## Implementation Note
+When requirements change frequently, prefer the layout model that communicates intent most clearly to future teammates. Grid for structure, Flexbox for internal alignment, and clear boundaries between the two.

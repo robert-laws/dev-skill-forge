@@ -1,0 +1,110 @@
+<section class="panel section-block demo" data-demo="grid-flex">
+  <h2 class="section-title compact">Interactive Demo: Grid vs Flexbox Chooser</h2>
+  <p>
+    Choose layout constraints and see which system is recommended first, including a starter snippet.
+  </p>
+
+  <div class="demo-grid">
+    <form class="demo-controls" data-gf-form>
+      <label>
+        Layout dimension
+        <select name="dimension">
+          <option value="one">Mostly one-dimensional (row or column)</option>
+          <option value="two">Two-dimensional (rows and columns)</option>
+        </select>
+      </label>
+
+      <label>
+        Need wrapping behavior for a row of items?
+        <select name="wrapping">
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+      </label>
+
+      <label>
+        Need explicit area placement?
+        <select name="placement">
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+      </label>
+
+      <label>
+        Is alignment inside each item the main challenge?
+        <select name="alignment">
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+      </label>
+    </form>
+
+    <div class="gf-output">
+      <p class="demo-label">Recommendation</p>
+      <p class="gf-recommendation" data-gf-recommendation>Flexbox first</p>
+      <ul class="content-list" data-gf-reasons></ul>
+      <pre class="demo-code" data-gf-code><code></code></pre>
+    </div>
+  </div>
+
+  <script is:inline>
+    (() => {
+      const root = document.querySelector('[data-demo="grid-flex"]');
+      if (!root || root.dataset.bound === 'true') return;
+      root.dataset.bound = 'true';
+
+      const form = root.querySelector('[data-gf-form]');
+      const recommendationNode = root.querySelector('[data-gf-recommendation]');
+      const reasonsNode = root.querySelector('[data-gf-reasons]');
+      const codeNode = root.querySelector('[data-gf-code] code');
+
+      if (!form || !recommendationNode || !reasonsNode || !codeNode) return;
+
+      const snippets = {
+        grid: `.layout {\n  display: grid;\n  grid-template-columns: 16rem 1fr;\n  grid-template-areas:\n    "sidebar main";\n}\n\n.card-row {\n  display: flex;\n  gap: 0.75rem;\n}`,
+        flex: `.toolbar {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 0.75rem;\n  flex-wrap: wrap;\n}`
+      };
+
+      const evaluate = () => {
+        const data = new FormData(form);
+        const dimension = String(data.get('dimension'));
+        const wrapping = String(data.get('wrapping'));
+        const placement = String(data.get('placement'));
+        const alignment = String(data.get('alignment'));
+
+        const reasons = [];
+        let mode = 'flex';
+
+        if (dimension === 'two' || placement === 'yes') {
+          mode = 'grid';
+          reasons.push('The problem is two-dimensional or needs explicit placement.');
+        }
+
+        if (wrapping === 'yes' && dimension === 'one' && placement === 'no') {
+          mode = 'flex';
+          reasons.push('Wrapping rows of items is straightforward with Flexbox.');
+        }
+
+        if (alignment === 'yes' && mode === 'grid') {
+          reasons.push('Use Flexbox inside grid items for internal alignment.');
+        }
+
+        if (reasons.length === 0) {
+          reasons.push('Default to the simplest model for the primary layout axis.');
+        }
+
+        recommendationNode.textContent = mode === 'grid' ? 'Grid first' : 'Flexbox first';
+        reasonsNode.innerHTML = '';
+        reasons.forEach((reason) => {
+          const item = document.createElement('li');
+          item.textContent = reason;
+          reasonsNode.appendChild(item);
+        });
+        codeNode.textContent = mode === 'grid' ? snippets.grid : snippets.flex;
+      };
+
+      form.addEventListener('change', evaluate);
+      evaluate();
+    })();
+  </script>
+</section>

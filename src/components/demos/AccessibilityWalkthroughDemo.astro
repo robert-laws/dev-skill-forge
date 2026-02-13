@@ -1,0 +1,74 @@
+<section class="panel section-block demo" data-demo="a11y">
+  <h2 class="section-title compact">Interactive Demo: Accessibility Walkthrough</h2>
+  <p>
+    Simulate a manual accessibility review. Mark each check as passing and watch the readiness score update.
+  </p>
+
+  <div class="demo-grid">
+    <form class="demo-controls" data-a11y-form>
+      <fieldset>
+        <legend>Checklist</legend>
+        <label><input type="checkbox" name="check" value="landmarks" /> Landmarks and heading structure are semantic.</label>
+        <label><input type="checkbox" name="check" value="labels" /> Form controls have associated labels.</label>
+        <label><input type="checkbox" name="check" value="keyboard" /> All interactions are keyboard accessible.</label>
+        <label><input type="checkbox" name="check" value="focus" /> Focus states are visible and logical.</label>
+        <label><input type="checkbox" name="check" value="contrast" /> Text contrast meets WCAG thresholds.</label>
+        <label><input type="checkbox" name="check" value="status" /> Dynamic updates are announced appropriately.</label>
+      </fieldset>
+    </form>
+
+    <div class="a11y-output" aria-live="polite">
+      <p class="demo-label">Readiness score</p>
+      <p class="a11y-score"><span data-a11y-score>0</span>%</p>
+      <p data-a11y-summary>0 of 6 critical checks passed.</p>
+      <p class="a11y-state" data-a11y-state>Needs remediation</p>
+      <pre class="demo-code"><code>&lt;main&gt;
+  &lt;h1&gt;Checkout&lt;/h1&gt;
+  &lt;form&gt;
+    &lt;label for="email"&gt;Email&lt;/label&gt;
+    &lt;input id="email" type="email" /&gt;
+    &lt;button&gt;Place order&lt;/button&gt;
+  &lt;/form&gt;
+&lt;/main&gt;</code></pre>
+    </div>
+  </div>
+
+  <script is:inline>
+    (() => {
+      const root = document.querySelector('[data-demo="a11y"]');
+      if (!root || root.dataset.bound === 'true') return;
+      root.dataset.bound = 'true';
+
+      const form = root.querySelector('[data-a11y-form]');
+      const scoreNode = root.querySelector('[data-a11y-score]');
+      const summaryNode = root.querySelector('[data-a11y-summary]');
+      const stateNode = root.querySelector('[data-a11y-state]');
+
+      if (!form || !scoreNode || !summaryNode || !stateNode) return;
+
+      const evaluate = () => {
+        const checks = Array.from(form.querySelectorAll('input[name="check"]'));
+        const passed = checks.filter((check) => check.checked).length;
+        const total = checks.length;
+        const score = Math.round((passed / total) * 100);
+
+        scoreNode.textContent = String(score);
+        summaryNode.textContent = `${passed} of ${total} critical checks passed.`;
+
+        if (score >= 85) {
+          stateNode.textContent = 'Ready for targeted manual validation';
+          stateNode.className = 'a11y-state good';
+        } else if (score >= 50) {
+          stateNode.textContent = 'Partially compliant, remediation required';
+          stateNode.className = 'a11y-state warn';
+        } else {
+          stateNode.textContent = 'Needs remediation';
+          stateNode.className = 'a11y-state bad';
+        }
+      };
+
+      form.addEventListener('change', evaluate);
+      evaluate();
+    })();
+  </script>
+</section>

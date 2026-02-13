@@ -1,0 +1,90 @@
+---
+id: 9
+title: Documenting Code and Communicating Changes
+question: How do you document your code or communicate changes for team members?
+group: Workflow, Reliability & Collaboration
+difficulty: Foundational
+interviewSignal: Evaluates collaboration quality and maintainability habits.
+outcomes:
+  - Choose documentation formats by audience and lifecycle stage.
+  - Write effective PRs and change summaries.
+  - Reduce team ambiguity with lightweight standards.
+keyConcepts:
+  - Documentation should reduce ambiguity at handoff points.
+  - Change communication must include risk and verification details.
+  - Documentation quality is measured by usability, not length.
+workflowSteps:
+  - Add code comments only where intent is not obvious.
+  - Write pull request summaries with context, scope, and test evidence.
+  - Capture architectural decisions in an ADR when tradeoffs are significant.
+  - Update changelog or release notes for user-visible behavior.
+  - Review docs during code review to prevent drift.
+practiceExercise: Write a pull request summary for a risky frontend refactor including test coverage and rollback notes.
+pitfalls:
+  - Treating documentation as an afterthought after merge.
+  - Writing comments that restate obvious code.
+  - Omitting risk and validation details from change summaries.
+quiz:
+  - question: What is the primary purpose of technical documentation in teams?
+    answer: To reduce confusion, transfer intent, and support safe future changes.
+    type: short
+    options: []
+  - question: Which PR detail most helps reviewers evaluate risk?
+    answer: A clear summary of behavior changes and validation evidence.
+    type: single
+    options:
+      - Number of files changed only
+      - Behavior changes plus test evidence
+      - Commit timestamps only
+  - question: When should you create an ADR?
+    answer: When a decision has meaningful long-term architectural consequences.
+    type: short
+    options: []
+  - question: Why keep changelog entries concise?
+    answer: Concise entries are easier to scan and more likely to stay updated.
+    type: short
+    options: []
+  - question: What prevents documentation drift most effectively?
+    answer: Making documentation updates part of the definition of done.
+    type: short
+    options: []
+furtherReading:
+  - label: "Keep a Changelog"
+    url: https://keepachangelog.com/en/1.1.0/
+  - label: "Conventional Commits"
+    url: https://www.conventionalcommits.org/en/v1.0.0/
+  - label: "Architecture Decision Records"
+    url: https://github.com/joelparkerhenderson/architecture-decision-record
+caseStudy:
+  title: "Frontend Refactor Communication Standard"
+  context: "Large UI refactors caused confusion because PR context and rollout risk were not documented consistently."
+  challenge: "Reduce ambiguity for reviewers and on-call engineers without adding heavy process overhead."
+  actions:
+    - "Introduced a PR template with problem, change, risk, and validation sections."
+    - "Required ADRs for high-impact architectural shifts."
+    - "Aligned release notes with user-facing behavior changes."
+    - "Added doc-review checks to pull request acceptance criteria."
+  result: "Review turnaround improved and production rollout surprises decreased after adoption."
+visualAsset:
+  src: /visuals/team-communication-loop.svg
+  alt: "Loop for technical communication from planning through release."
+  caption: "Documentation quality improves when communication is integrated into delivery, not bolted on afterward."
+estimatedMinutes: 25
+quizCount: 5
+status: complete
+---
+
+## Core Explanation
+Clear documentation and communication reduce delivery risk and onboarding cost. Good teams document decisions at the level of intent and impact, not line-by-line mechanics. The strongest habit is linking every change to context, validation, and operational risk.
+
+## Code Examples
+```md
+## Pull Request Summary
+- Problem: Checkout validation was inconsistent across forms.
+- Change: Replaced per-form validators with shared schema validation.
+- Risk: Potential error message regressions.
+- Validation: Unit tests, integration tests, and manual keyboard flow checks.
+```
+
+## Implementation Note
+If someone cannot review or operate your change without a meeting, your documentation is incomplete.

@@ -1,0 +1,20 @@
+---
+interface Props {
+  pitfalls?: string[];
+}
+
+const { pitfalls = [] } = Astro.props;
+---
+
+{
+  pitfalls.length > 0 && (
+    <section class="section-block panel">
+      <h2 class="section-title compact">Common Pitfalls</h2>
+      <ul class="content-list">
+        {pitfalls.map((pitfall) => (
+          <li>{pitfall}</li>
+        ))}
+      </ul>
+    </section>
+  )
+}

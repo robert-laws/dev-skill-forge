@@ -1,0 +1,93 @@
+---
+id: 1
+title: CMS Experience in Real Projects
+question: What is your experience working with content management systems?
+group: CMS & Theming
+difficulty: Foundational
+interviewSignal: Evaluates practical CMS fluency, editor empathy, and release discipline.
+outcomes:
+  - Explain CMS experience in business and engineering terms.
+  - Describe architecture tradeoffs across common CMS platforms.
+  - Demonstrate safe content model and publishing workflows.
+keyConcepts:
+  - CMS success depends on content model quality and editorial usability.
+  - Governance and permission boundaries are as important as templates.
+  - Release safety requires staging parity and rollback readiness.
+workflowSteps:
+  - Map business content needs to reusable content types.
+  - Define field validation and editorial workflow states.
+  - Implement templates and component mapping with clear ownership.
+  - Test authoring paths with non-developer editors.
+  - Ship with migration scripts and rollback procedures.
+practiceExercise: Design a content model for a marketing site with blog posts, case studies, and landing pages, then define who can publish each type.
+pitfalls:
+  - Modeling pages as one-off blobs instead of reusable structured entries.
+  - Giving editors too much layout control without guardrails.
+  - Releasing schema changes without migration rehearsals.
+quiz:
+  - question: Why is a strong content model important before theme implementation?
+    answer: It defines stable structure and reduces ad hoc template logic later.
+    type: short
+    options: []
+  - question: Which environment setup is most reliable for CMS releases?
+    answer: Development, staging, and production with close configuration parity.
+    type: single
+    options:
+      - Local and production only
+      - Development and production only
+      - Development, staging, and production parity
+  - question: What is one sign a CMS implementation is editor-hostile?
+    answer: Editors need developer help for routine publishing tasks.
+    type: short
+    options: []
+  - question: Why should content permissions be explicit from the start?
+    answer: Clear permissions reduce accidental publication and governance risk.
+    type: short
+    options: []
+  - question: What should accompany schema changes in production?
+    answer: Versioned migrations, validation checks, and rollback plans.
+    type: short
+    options: []
+furtherReading:
+  - label: "WordPress Developer Resources"
+    url: https://developer.wordpress.org/
+  - label: "Drupal Documentation"
+    url: https://www.drupal.org/docs
+  - label: "Contentful Developer Documentation"
+    url: https://www.contentful.com/developers/docs/
+caseStudy:
+  title: "Regional Newsroom CMS Migration"
+  context: "A newsroom migrated from manual page editing to a headless CMS with multiple editorial roles and daily publishing deadlines."
+  challenge: "Editors needed faster publishing while maintaining strict content governance and predictable template behavior."
+  actions:
+    - "Mapped articles, briefs, and feature pages into reusable content types."
+    - "Defined role-based workflows for draft, legal review, and publish states."
+    - "Built preview environments so editors could verify layout before publish."
+    - "Added migration scripts and rollback checkpoints for schema updates."
+  result: "Publishing latency dropped and content errors from manual page edits were significantly reduced within the first release cycle."
+visualAsset:
+  src: /visuals/cms-delivery-pipeline.svg
+  alt: "Pipeline showing CMS content modeling through publishing."
+  caption: "Reliable CMS delivery depends on workflow design as much as template code."
+estimatedMinutes: 30
+quizCount: 5
+status: complete
+---
+
+## Core Explanation
+Good CMS experience is not just platform familiarity. It is the ability to model content so teams can publish safely, maintain consistency across templates, and evolve the system without breaking editorial workflows. Strong answers connect technical implementation to publishing speed, governance, and reliability.
+
+## Code Examples
+```json
+{
+  "contentType": "caseStudy",
+  "fields": [
+    { "id": "title", "type": "text", "required": true },
+    { "id": "summary", "type": "text", "required": true },
+    { "id": "heroImage", "type": "asset", "required": true }
+  ]
+}
+```
+
+## Implementation Note
+If editors cannot predict the output of a field, the model usually needs refinement.

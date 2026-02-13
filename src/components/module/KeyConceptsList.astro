@@ -1,0 +1,20 @@
+---
+interface Props {
+  concepts?: string[];
+}
+
+const { concepts = [] } = Astro.props;
+---
+
+{
+  concepts.length > 0 && (
+    <section class="section-block">
+      <h2 class="section-title">Key Concepts and Best Practices</h2>
+      <ul class="content-list">
+        {concepts.map((concept) => (
+          <li>{concept}</li>
+        ))}
+      </ul>
+    </section>
+  )
+}

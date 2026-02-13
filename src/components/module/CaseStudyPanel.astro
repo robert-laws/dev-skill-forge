@@ -1,0 +1,33 @@
+---
+interface CaseStudy {
+  title: string;
+  context: string;
+  challenge: string;
+  actions: string[];
+  result: string;
+}
+
+interface Props {
+  caseStudy?: CaseStudy;
+}
+
+const { caseStudy } = Astro.props;
+---
+
+{
+  caseStudy && (
+    <section class="section-block panel">
+      <h2 class="section-title compact">Real-World Case Study</h2>
+      <p><strong>{caseStudy.title}</strong></p>
+      <p><strong>Context:</strong> {caseStudy.context}</p>
+      <p><strong>Challenge:</strong> {caseStudy.challenge}</p>
+      <p><strong>Actions Taken:</strong></p>
+      <ul class="content-list">
+        {caseStudy.actions.map((action) => (
+          <li>{action}</li>
+        ))}
+      </ul>
+      <p><strong>Result:</strong> {caseStudy.result}</p>
+    </section>
+  )
+}

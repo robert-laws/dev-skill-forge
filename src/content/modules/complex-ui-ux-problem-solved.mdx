@@ -1,0 +1,89 @@
+---
+id: 11
+title: Explaining a Complex UI or UX Problem Solved
+question: Describe a complex UI or UX problem you solved.
+group: Project Experience & Problem Solving
+difficulty: Intermediate
+interviewSignal: Evaluates problem framing, tradeoff management, and execution rigor.
+outcomes:
+  - Frame UX complexity using constraints and user outcomes.
+  - Explain iterative solution design and validation.
+  - Quantify results with usability or business metrics.
+keyConcepts:
+  - Complexity comes from constraints, edge cases, and conflicting goals.
+  - Strong solutions are iterative and evidence-driven.
+  - UX quality must be measured after release.
+workflowSteps:
+  - Define the user pain point and the constraints.
+  - Break the problem into interaction states and failure modes.
+  - Prototype options and evaluate against success criteria.
+  - Implement the selected approach with instrumentation.
+  - Measure outcomes and iterate on remaining friction.
+practiceExercise: Document a complex interaction from a past project and include one rejected option with the reason it was rejected.
+pitfalls:
+  - Calling a visually complex component a UX problem without user evidence.
+  - Skipping failure-state and edge-case design.
+  - Launching without a measurement plan.
+quiz:
+  - question: What qualifies a UI issue as a complex UX problem?
+    answer: Multiple constraints and user outcomes that cannot be solved by visual changes alone.
+    type: short
+    options: []
+  - question: Which approach best demonstrates strong UX decision making?
+    answer: Evaluating multiple options against explicit user and business criteria.
+    type: single
+    options:
+      - Choosing the fastest implementation only
+      - Following a trend from another product
+      - Testing options against defined criteria
+  - question: Why is instrumentation important in UX work?
+    answer: It validates whether the implemented solution improved real user behavior.
+    type: short
+    options: []
+  - question: What should a strong interview answer include?
+    answer: Problem framing, decisions, tradeoffs, and measurable outcomes.
+    type: short
+    options: []
+  - question: What weakens credibility in this answer?
+    answer: Claiming improvement without data or concrete evidence.
+    type: short
+    options: []
+furtherReading:
+  - label: "Nielsen Norman Group: UX Metrics"
+    url: https://www.nngroup.com/articles/ux-metrics/
+  - label: "web.dev: Core Web Vitals"
+    url: https://web.dev/vitals/
+  - label: "Usability.gov: User-Centered Design Basics"
+    url: https://www.usability.gov/what-and-why/user-centered-design.html
+caseStudy:
+  title: "Config Flow with High Abandonment"
+  context: "A complex setup flow combined legal requirements, pricing branches, and accessibility constraints."
+  challenge: "Users dropped off before completion and support teams could not diagnose failure causes clearly."
+  actions:
+    - "Mapped user journeys and identified high-friction interaction states."
+    - "Prototyped alternate step orders and validation timing."
+    - "Implemented progressive disclosure with saved partial progress."
+    - "Measured completion changes and iterated based on behavior data."
+  result: "Completion increased and user support friction decreased after iterative UX and instrumentation improvements."
+visualAsset:
+  src: /visuals/project-story-arc.svg
+  alt: "Problem-solving arc for complex UI and UX challenges."
+  caption: "Complex UX stories should show constraints, choices, and measurable outcomes."
+estimatedMinutes: 30
+quizCount: 5
+status: complete
+---
+
+## Core Explanation
+Complex UI and UX problems usually involve conflicting constraints such as clarity, performance, accessibility, and business rules. The best solutions come from structured problem framing, iterative testing, and post-launch measurement rather than single-pass visual redesign.
+
+## Code Examples
+```md
+Problem: Users abandoned a 7-step configuration flow at step 3.
+Constraint: Required legal disclosures and dynamic pricing options.
+Solution: Progressive disclosure plus inline validation and state persistence.
+Outcome: Completion rate increased by 19 percent.
+```
+
+## Implementation Note
+Complexity should be demonstrated through constraints and outcomes, not component size.

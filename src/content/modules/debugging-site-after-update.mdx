@@ -1,0 +1,88 @@
+---
+id: 6
+title: First Response When an Update Breaks a Site
+question: What are your first steps to debug a website if it breaks during an update?
+group: Workflow, Reliability & Collaboration
+difficulty: Intermediate
+interviewSignal: Tests incident response habits, risk control, and production discipline.
+outcomes:
+  - Execute a structured triage checklist.
+  - Isolate root cause from recent changes.
+  - Decide rollback vs forward-fix based on risk.
+keyConcepts:
+  - Stabilizing user impact comes before deep root-cause work.
+  - Release diffs and telemetry narrow diagnosis faster than intuition.
+  - Incident communication is part of engineering execution.
+workflowSteps:
+  - Confirm impact scope and severity with real user signals.
+  - Identify the exact deploy window and change set.
+  - Check logs, monitoring, and browser console signals.
+  - Choose rollback or mitigation path based on risk.
+  - Start root-cause analysis after service stability is restored.
+practiceExercise: Build a 15-minute triage checklist for a broken production deploy and define rollback triggers.
+pitfalls:
+  - Diving into code before understanding impact scope.
+  - Treating every issue as a forward-fix when rollback is safer.
+  - Waiting too long to update stakeholders.
+quiz:
+  - question: What should happen before detailed debugging in a production incident?
+    answer: Assess impact and stabilize users through mitigation or rollback.
+    type: short
+    options: []
+  - question: Which source most directly narrows update-related failures?
+    answer: The release diff and deploy timeline correlated with telemetry.
+    type: single
+    options:
+      - Team chat history only
+      - Release diff plus telemetry
+      - Browser bookmarks
+  - question: When is rollback typically the right move?
+    answer: When user impact is high and rollback risk is lower than ongoing downtime.
+    type: short
+    options: []
+  - question: Why is incident communication essential?
+    answer: It aligns teams on impact, actions, and decision checkpoints.
+    type: short
+    options: []
+  - question: What should follow stabilization?
+    answer: Root-cause analysis with prevention actions and ownership.
+    type: short
+    options: []
+furtherReading:
+  - label: "Google SRE Workbook: Incident Response"
+    url: https://sre.google/workbook/incident-response/
+  - label: "GitHub Docs: Undoing changes"
+    url: https://docs.github.com/en/get-started/using-git/undoing-changes
+  - label: "MDN: HTTP response status codes"
+    url: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
+caseStudy:
+  title: "Post-Deploy Navigation Outage"
+  context: "A production update broke global navigation for authenticated users only."
+  challenge: "The issue needed immediate stabilization while preserving a clean path to root cause."
+  actions:
+    - "Scoped impact by account type and browser family from telemetry."
+    - "Rolled back the faulty release within the incident threshold window."
+    - "Reproduced against staging with production-like feature-flag state."
+    - "Documented a deploy gate requiring flag-state smoke tests before release."
+  result: "Downtime was contained quickly and the same release class has not recurred since the new gate was added."
+visualAsset:
+  src: /visuals/workflow-reliability-loop.svg
+  alt: "Reliability loop from detection to documentation."
+  caption: "Fast incident response is a cycle: detect, triage, mitigate, verify, and document."
+estimatedMinutes: 35
+quizCount: 5
+status: complete
+---
+
+## Core Explanation
+When updates break production, the fastest reliable process is triage first, diagnosis second. Confirm impact, stabilize users, and then isolate root cause with evidence from release history and runtime telemetry. This approach reduces downtime and prevents panic-driven fixes.
+
+## Code Examples
+```sh
+# Example rollback command pattern
+# git revert <bad_commit_sha>
+# git push origin main
+```
+
+## Implementation Note
+If the issue is user-facing and severe, speed plus safety matters more than elegant debugging.

@@ -1,0 +1,119 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import WorkflowSteps from '../components/module/WorkflowSteps.astro';
+import KeyConceptsList from '../components/module/KeyConceptsList.astro';
+import PracticeExercise from '../components/module/PracticeExercise.astro';
+import PitfallsPanel from '../components/module/PitfallsPanel.astro';
+import QuizBlock from '../components/module/QuizBlock.astro';
+import ReadingLinks from '../components/module/ReadingLinks.astro';
+import CaseStudyPanel from '../components/module/CaseStudyPanel.astro';
+import VisualAssetPanel from '../components/module/VisualAssetPanel.astro';
+import ModuleCompletionToggle from '../components/progress/ModuleCompletionToggle.astro';
+
+interface QuizItem {
+  question: string;
+  answer: string;
+  type: 'short' | 'single';
+  options: string[];
+}
+
+interface ReadingLink {
+  label: string;
+  url: string;
+}
+
+interface CaseStudy {
+  title: string;
+  context: string;
+  challenge: string;
+  actions: string[];
+  result: string;
+}
+
+interface VisualAsset {
+  src: string;
+  alt: string;
+  caption: string;
+}
+
+interface Props {
+  slug: string;
+  title: string;
+  question: string;
+  group: string;
+  difficulty: string;
+  interviewSignal: string;
+  estimatedMinutes: number;
+  quizCount: number;
+  outcomes: string[];
+  workflowSteps?: string[];
+  keyConcepts?: string[];
+  practiceExercise?: string;
+  pitfalls?: string[];
+  quiz?: QuizItem[];
+  furtherReading?: ReadingLink[];
+  caseStudy?: CaseStudy;
+  visualAsset?: VisualAsset;
+}
+
+const {
+  slug,
+  title,
+  question,
+  group,
+  difficulty,
+  interviewSignal,
+  estimatedMinutes,
+  quizCount,
+  outcomes,
+  workflowSteps = [],
+  keyConcepts = [],
+  practiceExercise,
+  pitfalls = [],
+  quiz = [],
+  furtherReading = [],
+  caseStudy,
+  visualAsset
+} = Astro.props;
+---
+
+<BaseLayout title={`${title} | Dev Skill Forge`} description={question}>
+  <article>
+    <p class="badge">{group}</p>
+    <h1>{title}</h1>
+    <p>{question}</p>
+
+    <div class="meta">
+      <span>{difficulty}</span>
+      <span>{estimatedMinutes} min</span>
+      <span>{quizCount} quiz items</span>
+    </div>
+
+    <ModuleCompletionToggle slug={slug} />
+
+    <section class="panel">
+      <h2>Interview Signal</h2>
+      <p>{interviewSignal}</p>
+    </section>
+
+    <section>
+      <h2 class="section-title">Learning Outcomes</h2>
+      <ul class="content-list">
+        {outcomes.map((outcome) => <li>{outcome}</li>)}
+      </ul>
+    </section>
+
+    <section class="section-block module-body">
+      <slot />
+    </section>
+
+    <VisualAssetPanel visualAsset={visualAsset} />
+    <CaseStudyPanel caseStudy={caseStudy} />
+    <WorkflowSteps steps={workflowSteps} />
+    <KeyConceptsList concepts={keyConcepts} />
+    <PracticeExercise prompt={practiceExercise} />
+    <PitfallsPanel pitfalls={pitfalls} />
+    <QuizBlock items={quiz} />
+    <ReadingLinks links={furtherReading} />
+  </article>
+</BaseLayout>

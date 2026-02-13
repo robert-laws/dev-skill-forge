@@ -1,0 +1,134 @@
+<section class="panel section-block demo" data-demo="specificity">
+  <h2 class="section-title compact">Interactive Demo: CSS Specificity Debugger</h2>
+  <p>
+    Reproduce a specificity conflict, then fix it by applying a selector and color rule. Inspect the computed result to validate your reasoning.
+  </p>
+
+  <div class="demo-grid">
+    <div>
+      <p class="demo-label">Broken preview</p>
+      <div class="sd-preview" data-sd-preview>
+        <div class="sd-container">
+          <h3 class="sd-title text-danger is-highlight">Checkout Total</h3>
+          <p class="sd-note">Expected red, but the current rule wins.</p>
+        </div>
+      </div>
+      <p class="sd-meta" data-sd-computed>Computed color: --</p>
+    </div>
+
+    <form class="demo-controls" data-sd-form>
+      <label>
+        Selector
+        <input type="text" name="selector" value=".sd-container .sd-title.is-highlight" />
+      </label>
+      <label>
+        Color
+        <input type="text" name="color" value="#dc2626" />
+      </label>
+      <div class="demo-actions">
+        <button type="submit">Apply Rule</button>
+        <button type="button" data-sd-reset>Reset</button>
+      </div>
+      <p class="sd-feedback" data-sd-feedback aria-live="polite"></p>
+      <details>
+        <summary>Hint</summary>
+        <p>The existing selector includes a parent class and a state class. Match that specificity to override predictably.</p>
+      </details>
+    </form>
+  </div>
+
+  <style>
+    .sd-preview .sd-title {
+      color: #4b5563;
+      margin: 0;
+    }
+
+    .sd-preview .sd-container .sd-title {
+      color: #0f766e;
+    }
+
+    .sd-preview .text-danger {
+      color: #dc2626;
+    }
+
+    .sd-preview .sd-note {
+      margin: 0.25rem 0 0;
+      color: #625f58;
+      font-size: 0.9rem;
+    }
+  </style>
+
+  <script is:inline>
+    (() => {
+      const root = document.querySelector('[data-demo="specificity"]');
+      if (!root || root.dataset.bound === 'true') return;
+      root.dataset.bound = 'true';
+
+      const form = root.querySelector('[data-sd-form]');
+      const resetButton = root.querySelector('[data-sd-reset]');
+      const feedback = root.querySelector('[data-sd-feedback]');
+      const computedNode = root.querySelector('[data-sd-computed]');
+      const target = root.querySelector('.sd-title');
+      const preview = root.querySelector('[data-sd-preview]');
+
+      if (!form || !resetButton || !feedback || !computedNode || !target || !preview) return;
+
+      const styleEl = document.createElement('style');
+      root.appendChild(styleEl);
+
+      const updateComputed = () => {
+        const color = window.getComputedStyle(target).color;
+        computedNode.textContent = `Computed color: ${color}`;
+      };
+
+      const clearFeedback = () => {
+        feedback.textContent = '';
+      };
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        clearFeedback();
+        const data = new FormData(form);
+        const selector = String(data.get('selector') || '').trim();
+        const color = String(data.get('color') || '').trim();
+
+        if (!selector || !color) {
+          feedback.textContent = 'Provide both a selector and a color.';
+          updateComputed();
+          return;
+        }
+
+        if (!window.CSS || !window.CSS.supports('color', color)) {
+          feedback.textContent = 'Provide a valid CSS color value.';
+          updateComputed();
+          return;
+        }
+
+        try {
+          preview.querySelector(selector);
+        } catch {
+          feedback.textContent = 'Invalid selector syntax. Try a valid CSS selector.';
+          updateComputed();
+          return;
+        }
+
+        styleEl.textContent = `[data-demo=\"specificity\"] ${selector} { color: ${color}; }`;
+        updateComputed();
+        feedback.textContent = 'Rule applied. Check the computed color to verify your fix.';
+      });
+
+      resetButton.addEventListener('click', () => {
+        styleEl.textContent = '';
+        form.reset();
+        const selectorInput = form.querySelector('input[name="selector"]');
+        const colorInput = form.querySelector('input[name="color"]');
+        if (selectorInput) selectorInput.value = '.sd-container .sd-title.is-highlight';
+        if (colorInput) colorInput.value = '#dc2626';
+        clearFeedback();
+        updateComputed();
+      });
+
+      updateComputed();
+    })();
+  </script>
+</section>

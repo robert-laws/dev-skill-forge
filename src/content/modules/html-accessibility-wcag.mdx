@@ -1,0 +1,109 @@
+---
+id: 7
+title: Building WCAG-Compliant HTML in Practice
+question: How do you ensure your HTML is accessible (WCAG compliant)? Describe the tools and best practices you use to avoid WCAG errors.
+group: Accessibility & Standards
+difficulty: Intermediate
+interviewSignal: Evaluates accessibility engineering maturity and standards-driven execution.
+outcomes:
+  - Apply semantic HTML and accessible interaction patterns.
+  - Use tooling to detect and prevent WCAG failures.
+  - Validate accessibility manually beyond automated checks.
+keyConcepts:
+  - Native semantic elements are usually the most robust accessibility choice.
+  - Accessibility checks must combine automation and manual testing.
+  - Keyboard operability and focus visibility are non-negotiable for interactive UI.
+workflowSteps:
+  - Start with semantic landmarks, headings, and form label relationships.
+  - Build keyboard paths and focus states as you implement components.
+  - Run automated checks locally and in CI.
+  - Perform manual screen reader and keyboard-only verification.
+  - Track accessibility issues with severity and remediation owner.
+practiceExercise: Audit a form page for heading order, labels, focus behavior, and contrast, then document remediation tasks.
+pitfalls:
+  - Adding ARIA roles where native elements already provide semantics.
+  - Treating color contrast checks as optional design polish.
+  - Passing automated scans while missing keyboard traps.
+quiz:
+  - question: Why is native HTML usually preferred over custom ARIA-heavy controls?
+    answer: Native elements carry built-in semantics and interaction behavior that assistive technologies already understand.
+    type: short
+    options: []
+  - question: Which validation sequence is strongest?
+    answer: Automated tooling plus manual keyboard and screen reader testing.
+    type: single
+    options:
+      - Automated tooling only
+      - Manual testing only
+      - Automated plus manual checks
+  - question: What is one sign that a component may fail WCAG keyboard expectations?
+    answer: Interactive behavior requires a mouse and cannot be completed with keyboard input alone.
+    type: short
+    options: []
+  - question: Why track accessibility defects with explicit owners?
+    answer: Ownership prevents defects from being deprioritized and improves remediation reliability.
+    type: short
+    options: []
+  - question: Should accessibility be a late-stage QA step?
+    answer: No. It should be integrated during design, development, and release workflows.
+    type: short
+    options: []
+furtherReading:
+  - label: "W3C WAI: WCAG 2 Overview"
+    url: https://www.w3.org/WAI/standards-guidelines/wcag/
+  - label: "MDN: HTML accessibility"
+    url: https://developer.mozilla.org/en-US/docs/Learn/Accessibility/HTML
+  - label: "WebAIM Contrast Checker"
+    url: https://webaim.org/resources/contrastchecker/
+caseStudy:
+  title: Registration Flow Accessibility Remediation
+  context: A high-traffic signup funnel had strong conversion but frequent support complaints from keyboard and screen-reader users.
+  challenge: Automated audits passed most pages, yet real usage revealed focus traps and unclear status messages.
+  actions:
+    - Replaced non-semantic clickable divs with native buttons and links.
+    - Added explicit form label associations and error message relationships.
+    - Introduced screen-reader announcements for async validation status.
+    - Added keyboard-only and NVDA/VoiceOver checks to release QA.
+  result: Accessibility defects in signup dropped substantially and support tickets related to form completion decreased.
+visualAsset:
+  src: /visuals/a11y-audit-loop.svg
+  alt: Iterative accessibility audit loop including semantic build, automated checks, manual testing, and remediation.
+  caption: Accessibility quality improves when automation and manual assistive-tech checks run in a loop.
+estimatedMinutes: 45
+quizCount: 5
+status: complete
+---
+
+## Core Explanation
+WCAG compliance is most effective when treated as a continuous engineering standard rather than a final checklist. The core pattern is simple: build semantic markup first, preserve keyboard and focus behavior in every component, and then verify with both automated tooling and manual assistive technology testing.
+
+## Code Examples
+```html
+<main aria-labelledby="checkout-title">
+  <h1 id="checkout-title">Checkout</h1>
+  <form novalidate>
+    <label for="email">Email address</label>
+    <input id="email" name="email" type="email" autocomplete="email" required />
+
+    <p id="email-error" class="field-error" role="status" aria-live="polite"></p>
+
+    <button type="submit">Place order</button>
+  </form>
+</main>
+```
+
+```js
+const emailInput = document.querySelector('#email');
+const emailError = document.querySelector('#email-error');
+
+emailInput.addEventListener('blur', () => {
+  if (!emailInput.validity.valid) {
+    emailInput.setAttribute('aria-invalid', 'true');
+    emailInput.setAttribute('aria-describedby', 'email-error');
+    emailError.textContent = 'Enter a valid email address.';
+  }
+});
+```
+
+## Tooling Note
+Automation catches many issues quickly, but only manual interaction testing confirms real usability. Treat keyboard paths and screen-reader output as release-level quality gates, not optional checks.

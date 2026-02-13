@@ -1,0 +1,95 @@
+---
+id: 13
+title: Process for Creating and Customizing Themes
+question: What is your process for creating and customizing themes?
+group: CMS & Theming
+difficulty: Intermediate
+interviewSignal: Evaluates design-system thinking, implementation discipline, and maintainable theming.
+outcomes:
+  - Define a repeatable theming workflow from tokens to templates.
+  - Balance brand customization with performance and accessibility.
+  - Avoid theme drift with governance and documentation.
+keyConcepts:
+  - Themes scale better when built from tokens and reusable components.
+  - Brand customization should not compromise accessibility or performance.
+  - Upgrade-friendly overrides require strict boundary rules.
+workflowSteps:
+  - Gather brand requirements and content constraints.
+  - Define token primitives for color, spacing, and typography.
+  - Implement template and component-level theme overrides.
+  - Validate across breakpoints, content states, and accessibility checks.
+  - Document override strategy and maintenance ownership.
+practiceExercise: Create a theming checklist for launching a second brand variant on an existing CMS platform.
+pitfalls:
+  - Hardcoding brand styles outside token systems.
+  - Creating brittle template overrides that block upgrades.
+  - Ignoring real content variability during theme QA.
+quiz:
+  - question: Why are design tokens central to a theme workflow?
+    answer: They provide consistent, reusable style decisions across templates and components.
+    type: short
+    options: []
+  - question: Which approach best supports long-term CMS upgrades?
+    answer: Isolated, documented overrides with minimal core template modification.
+    type: single
+    options:
+      - Direct edits to core templates everywhere
+      - Isolated and documented override boundaries
+      - Copying all base templates into the theme
+  - question: What should be tested before theme release?
+    answer: Responsive layouts, accessibility states, and content edge cases.
+    type: short
+    options: []
+  - question: What causes theme drift over time?
+    answer: Untracked one-off style changes outside the token and component system.
+    type: short
+    options: []
+  - question: Why document theming boundaries for teams?
+    answer: Documentation keeps future customizations consistent and upgrade-safe.
+    type: short
+    options: []
+furtherReading:
+  - label: "WordPress Theme Developer Handbook"
+    url: https://developer.wordpress.org/themes/
+  - label: "Shopify Theme Architecture"
+    url: https://shopify.dev/docs/storefronts/themes/architecture
+  - label: "W3C Design Tokens Community Group"
+    url: https://www.w3.org/community/design-tokens/
+caseStudy:
+  title: "Multi-Brand Theme Rollout"
+  context: "A company launched a second brand and needed rapid theming without duplicating template logic."
+  challenge: "Support brand differences while keeping shared components upgrade-friendly."
+  actions:
+    - "Introduced token-based color, spacing, and typography layers."
+    - "Separated base templates from brand-specific overrides."
+    - "Built responsive and accessibility QA checklists for each brand release."
+    - "Documented override boundaries to prevent drift."
+  result: "The second brand shipped quickly and subsequent updates remained maintainable across both themes."
+visualAsset:
+  src: /visuals/cms-delivery-pipeline.svg
+  alt: "Theming workflow from tokens through validation and publish."
+  caption: "Theme customization is safer when token systems and override boundaries are explicit."
+estimatedMinutes: 35
+quizCount: 5
+status: complete
+---
+
+## Core Explanation
+Theme work is most reliable when it starts from a token system and clear override boundaries. A repeatable process makes it easier to launch brand variants without sacrificing accessibility, performance, or upgrade compatibility.
+
+## Code Examples
+```css
+:root {
+  --brand-primary: #0e7490;
+  --brand-surface: #ffffff;
+  --brand-text: #1e1d1b;
+}
+
+.button-primary {
+  background: var(--brand-primary);
+  color: var(--brand-surface);
+}
+```
+
+## Implementation Note
+If a new brand requires heavy template rewrites, the base theming architecture is likely too rigid.

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" role="img" aria-labelledby="title desc">
+  <title id="title">Workflow reliability loop</title>
+  <desc id="desc">Loop showing detect, triage, mitigate, verify, and document stages.</desc>
+  <defs><style>.bg{fill:#f7f7f4}.c{fill:none;stroke:#0e7490;stroke-width:8}.n{fill:#fff;stroke:#d8d2c7;stroke-width:2;rx:10}.t{fill:#1e1d1b;font:600 14px 'IBM Plex Sans',Arial}</style></defs>
+  <rect class="bg" width="900" height="360"/>
+  <circle class="c" cx="450" cy="180" r="120"/>
+  <rect class="n" x="390" y="18" width="120" height="54"/><text class="t" x="450" y="51" text-anchor="middle">Detect</text>
+  <rect class="n" x="680" y="138" width="120" height="54"/><text class="t" x="740" y="171" text-anchor="middle">Triage</text>
+  <rect class="n" x="580" y="286" width="120" height="54"/><text class="t" x="640" y="319" text-anchor="middle">Mitigate</text>
+  <rect class="n" x="200" y="286" width="120" height="54"/><text class="t" x="260" y="319" text-anchor="middle">Verify</text>
+  <rect class="n" x="100" y="138" width="120" height="54"/><text class="t" x="160" y="171" text-anchor="middle">Document</text>
+</svg>

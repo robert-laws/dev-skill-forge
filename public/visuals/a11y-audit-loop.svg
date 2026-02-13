@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" role="img" aria-labelledby="title desc">
+  <title id="title">Accessibility audit loop</title>
+  <desc id="desc">An iterative loop: semantic build, automated checks, manual testing, remediation, and regression verification.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f7f7f4; }
+      .ring { fill: none; stroke: #0e7490; stroke-width: 10; }
+      .node { fill: #ffffff; stroke: #d8d2c7; stroke-width: 2; rx: 10; }
+      .text { fill: #1e1d1b; font: 600 14px 'IBM Plex Sans', Arial, sans-serif; }
+    </style>
+  </defs>
+  <rect class="bg" width="900" height="360" />
+  <circle class="ring" cx="450" cy="180" r="122" stroke-dasharray="560 220" transform="rotate(-25 450 180)" />
+
+  <rect class="node" x="380" y="30" width="140" height="58" />
+  <text class="text" x="450" y="65" text-anchor="middle">Semantic Build</text>
+
+  <rect class="node" x="640" y="118" width="180" height="58" />
+  <text class="text" x="730" y="153" text-anchor="middle">Automated Checks</text>
+
+  <rect class="node" x="600" y="258" width="220" height="58" />
+  <text class="text" x="710" y="293" text-anchor="middle">Manual Screen Reader QA</text>
+
+  <rect class="node" x="82" y="258" width="200" height="58" />
+  <text class="text" x="182" y="293" text-anchor="middle">Remediation + Retest</text>
+
+  <rect class="node" x="76" y="118" width="200" height="58" />
+  <text class="text" x="176" y="153" text-anchor="middle">Keyboard Path Review</text>
+</svg>

@@ -1,0 +1,41 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Focused front-end interview prep modules.' } = Astro.props;
+const withBase = (pathname: string) => `${import.meta.env.BASE_URL}${pathname.replace(/^\//, '')}`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <header class="site-header">
+      <a class="brand" href={withBase('/')}>Dev Skill Forge</a>
+      <nav class="nav" aria-label="Primary">
+        <a href={withBase('/modules')}>Modules</a>
+        <a href={withBase('/glossary')}>Glossary</a>
+        <a href={withBase('/resources')}>Resources</a>
+      </nav>
+    </header>
+    <main class="site-main" id="main-content">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      Built for practical front-end mastery across 14 interview-driven modules.
+    </footer>
+    <script is:inline src={withBase('/scripts/progress.js')} defer></script>
+  </body>
+</html>

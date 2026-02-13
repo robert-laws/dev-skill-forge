@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 320" role="img" aria-labelledby="title desc">
+  <title id="title">CMS delivery pipeline</title>
+  <desc id="desc">Flow from content modeling to editorial preview, staging validation, and production publish.</desc>
+  <defs>
+    <style>
+      .bg{fill:#f7f7f4}.box{fill:#fff;stroke:#d8d2c7;stroke-width:2;rx:10}.t{fill:#1e1d1b;font:600 15px 'IBM Plex Sans',Arial}.a{stroke:#0e7490;stroke-width:3;fill:none;marker-end:url(#m)}
+    </style>
+    <marker id="m" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#0e7490"/></marker>
+  </defs>
+  <rect class="bg" width="900" height="320"/>
+  <rect class="box" x="30" y="112" width="170" height="86"/><text class="t" x="115" y="160" text-anchor="middle">Model Content</text>
+  <rect class="box" x="230" y="112" width="170" height="86"/><text class="t" x="315" y="160" text-anchor="middle">Build Templates</text>
+  <rect class="box" x="430" y="112" width="170" height="86"/><text class="t" x="515" y="160" text-anchor="middle">Editor Preview</text>
+  <rect class="box" x="630" y="112" width="170" height="86"/><text class="t" x="715" y="160" text-anchor="middle">Staging Validate</text>
+  <rect class="box" x="730" y="28" width="140" height="58"/><text class="t" x="800" y="62" text-anchor="middle">Publish</text>
+  <path class="a" d="M200 155 H226"/><path class="a" d="M400 155 H426"/><path class="a" d="M600 155 H626"/><path class="a" d="M770 112 V89"/>
+</svg>

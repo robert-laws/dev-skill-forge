@@ -1,0 +1,92 @@
+---
+id: 3
+title: CSS Methodologies and Framework Choices
+question: What CSS methodologies or frameworks have you used (e.g., BEM, Tailwind, Bootstrap)?
+group: CSS Fundamentals & Systems
+difficulty: Intermediate
+interviewSignal: Evaluates system thinking, maintainability strategy, and team scalability.
+outcomes:
+  - Compare BEM, utility-first, and component-library approaches.
+  - Select a CSS strategy based on team constraints.
+  - Define migration and governance patterns for styling systems.
+keyConcepts:
+  - Styling choices should optimize maintainability over short-term speed.
+  - Naming conventions and token systems reduce style drift.
+  - Mixed approaches work only with explicit boundaries.
+workflowSteps:
+  - Assess team size, product complexity, and release cadence.
+  - Choose a primary styling pattern and document rules.
+  - Define design tokens for spacing, color, and typography.
+  - Add linting and code review checks for consistency.
+  - Revisit strategy after major product or team shifts.
+practiceExercise: Propose a styling strategy for a multi-team SaaS dashboard and justify where BEM, utility classes, or component libraries fit.
+pitfalls:
+  - Allowing multiple patterns without agreed boundaries.
+  - Optimizing for initial speed while ignoring long-term complexity.
+  - Treating a framework as a substitute for design-system decisions.
+quiz:
+  - question: What is a main benefit of utility-first CSS in large codebases?
+    answer: It can speed implementation and reduce custom stylesheet sprawl when conventions are enforced.
+    type: short
+    options: []
+  - question: When is BEM most valuable?
+    answer: When teams need predictable naming and explicit component boundaries.
+    type: single
+    options:
+      - Only for tiny prototypes
+      - For maintainable component-oriented CSS
+      - Only when using CSS-in-JS
+  - question: Why should design tokens accompany any CSS methodology?
+    answer: Tokens centralize core decisions and keep styles consistent across components.
+    type: short
+    options: []
+  - question: What risk appears when teams mix Tailwind and custom semantic classes freely?
+    answer: Inconsistent patterns and rising maintenance overhead.
+    type: short
+    options: []
+  - question: What is a healthy way to evaluate a CSS framework?
+    answer: Measure delivery speed, maintainability, onboarding cost, and bundle impact.
+    type: short
+    options: []
+furtherReading:
+  - label: "BEM Introduction"
+    url: https://getbem.com/
+  - label: "Tailwind CSS Documentation"
+    url: https://tailwindcss.com/docs/utility-first
+  - label: "Bootstrap Documentation"
+    url: https://getbootstrap.com/docs/5.3/getting-started/introduction/
+caseStudy:
+  title: "Multi-Product Styling Consolidation"
+  context: "Three product teams used different CSS styles, causing inconsistent UI behavior and slower onboarding."
+  challenge: "Unify styling practices without forcing a full rewrite of mature interfaces."
+  actions:
+    - "Defined shared tokens for color, spacing, and typography."
+    - "Set BEM for legacy components and utility-first patterns for new feature teams."
+    - "Introduced stylelint rules and PR review checklist for architecture consistency."
+    - "Created migration playbooks by component risk level."
+  result: "Design drift slowed, review quality improved, and teams shipped new UI with fewer style regressions."
+visualAsset:
+  src: /visuals/css-system-spectrum.svg
+  alt: "Spectrum comparing semantic CSS, utility-first CSS, and component libraries."
+  caption: "Teams can combine methodologies when tokens and governance are consistent."
+estimatedMinutes: 35
+quizCount: 5
+status: complete
+---
+
+## Core Explanation
+No single CSS approach is universally best. The right choice depends on how your team ships, reviews, and maintains UI over time. Mature teams select a default pattern, enforce it with tooling, and only deviate where there is clear justification.
+
+## Code Examples
+```css
+/* BEM */
+.card__title {
+  margin-block-end: 0.5rem;
+}
+
+/* Utility-first (conceptual) */
+/* <h2 class="mb-2 text-lg font-semibold">Title</h2> */
+```
+
+## Implementation Note
+The best methodology is the one your team can apply consistently six months later.

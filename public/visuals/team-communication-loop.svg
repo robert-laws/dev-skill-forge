@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 320" role="img" aria-labelledby="title desc">
+  <title id="title">Team communication loop</title>
+  <desc id="desc">Loop for plan, implement, document, review, and release communication.</desc>
+  <defs><style>.bg{fill:#f7f7f4}.n{fill:#fff;stroke:#d8d2c7;stroke-width:2;rx:10}.t{fill:#1e1d1b;font:600 14px 'IBM Plex Sans',Arial}.l{stroke:#0e7490;stroke-width:3;fill:none}</style></defs>
+  <rect class="bg" width="900" height="320"/>
+  <path class="l" d="M120 160 C120 70, 780 70, 780 160 C780 250, 120 250, 120 160"/>
+  <rect class="n" x="120" y="132" width="120" height="56"/><text class="t" x="180" y="166" text-anchor="middle">Plan</text>
+  <rect class="n" x="280" y="88" width="120" height="56"/><text class="t" x="340" y="122" text-anchor="middle">Implement</text>
+  <rect class="n" x="440" y="64" width="120" height="56"/><text class="t" x="500" y="98" text-anchor="middle">Document</text>
+  <rect class="n" x="600" y="88" width="120" height="56"/><text class="t" x="660" y="122" text-anchor="middle">Review</text>
+  <rect class="n" x="680" y="132" width="120" height="56"/><text class="t" x="740" y="166" text-anchor="middle">Release</text>
+</svg>

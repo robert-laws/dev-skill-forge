@@ -1,0 +1,109 @@
+---
+id: 4
+title: Debugging CSS Specificity Issues
+question: How do you approach debugging CSS specificity issues?
+group: CSS Fundamentals & Systems
+difficulty: Intermediate
+interviewSignal: Tests debugging discipline and command of cascade behavior.
+outcomes:
+  - Diagnose specificity conflicts quickly using browser tooling.
+  - Resolve conflicts without relying on !important.
+  - Build a repeatable debugging checklist.
+keyConcepts:
+  - Specificity debugging starts with computed styles, not guesswork.
+  - Cascade order and selector weight are separate concerns.
+  - Repeated !important usage signals architecture problems.
+workflowSteps:
+  - Reproduce the issue and isolate the exact DOM state.
+  - Inspect matched and overridden rules in DevTools.
+  - Identify whether source order, specificity, or inheritance is the root cause.
+  - Implement the minimal fix at the correct style layer.
+  - Verify across breakpoints and interaction states.
+practiceExercise: Debug a component where a utility class fails to override a component selector and document the least invasive fix.
+pitfalls:
+  - Adding !important before inspecting computed styles.
+  - Increasing selector depth instead of fixing style architecture.
+  - Ignoring state selectors such as focus and hover during validation.
+quiz:
+  - question: What should you inspect first in a specificity bug?
+    answer: The computed style panel and matched rules for the exact element state.
+    type: short
+    options: []
+  - question: Which fix is usually healthier than adding !important?
+    answer: Adjusting selector strategy and style layer ownership.
+    type: single
+    options:
+      - Add more !important declarations
+      - Refactor selector and cascade structure
+      - Duplicate the rule in multiple files
+  - question: Why is source order still relevant when specificity ties?
+    answer: Later declarations win when selector specificity is equal.
+    type: short
+    options: []
+  - question: What does recurring specificity conflict often indicate?
+    answer: A broader CSS architecture issue rather than a single rule mistake.
+    type: short
+    options: []
+  - question: What must be included in final verification?
+    answer: Breakpoints, interactive states, and adjacent components.
+    type: short
+    options: []
+furtherReading:
+  - label: "MDN: Specificity"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity
+  - label: "MDN: The Cascade"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_cascade/Cascade
+  - label: "Chrome DevTools: CSS features reference"
+    url: https://developer.chrome.com/docs/devtools/css/reference
+caseStudy:
+  title: Checkout Header Color Regression
+  context: An ecommerce checkout page shipped with a new utility class intended to highlight totals in red.
+  challenge: The utility class appeared in markup but was overridden by an older high-specificity component rule.
+  actions:
+    - Reproduced the issue in a narrow fixture to remove unrelated styles.
+    - Used DevTools computed panel to confirm which selector won and why.
+    - Refactored the component selector to reduce depth and moved state styling to a dedicated modifier.
+    - Added a lint rule to prevent nested selector chains beyond agreed limits.
+  result: Bug fixed without !important, with a 40 percent drop in similar cascade regressions over the next two sprints.
+visualAsset:
+  src: /visuals/specificity-debug-flow.svg
+  alt: Flowchart of a CSS specificity debugging process from reproduce to verify.
+  caption: A repeatable debugging flow minimizes guesswork and avoids brittle overrides.
+estimatedMinutes: 35
+quizCount: 5
+status: complete
+---
+
+## Core Explanation
+Specificity problems are easiest to solve when treated as a system diagnosis, not a one-off override contest. Inspect what actually wins in the cascade, determine why it wins, and fix rule ownership so the same bug class does not recur.
+
+## Code Examples
+```css
+/* Before: brittle, deeply nested selector with high weight */
+.checkout-page .checkout-layout .summary .summary__total {
+  color: #0f766e;
+}
+
+/* Utility class intended to win but loses */
+.text-danger {
+  color: #dc2626;
+}
+```
+
+```css
+/* After: component base with controlled modifier */
+.summary__total {
+  color: #0f766e;
+}
+
+.summary__total--alert {
+  color: #dc2626;
+}
+```
+
+```html
+<h3 class="summary__total summary__total--alert">Checkout Total</h3>
+```
+
+## Implementation Note
+If your fix requires more selector weight than the original requirement, pause and reassess architecture. A maintainable style system prefers explicit component modifiers and lower cascade ambiguity over ad hoc overrides.

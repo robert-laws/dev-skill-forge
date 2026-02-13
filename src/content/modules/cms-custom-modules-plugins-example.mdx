@@ -1,0 +1,88 @@
+---
+id: 12
+title: Building Custom CMS Modules or Plugins
+question: How do you approach creating custom modules or plugins for a CMS? Can you give an example of one you built?
+group: CMS & Theming
+difficulty: Advanced
+interviewSignal: Tests extension architecture, platform understanding, and maintainable implementation.
+outcomes:
+  - Design custom CMS extensions with clear boundaries.
+  - Explain security, compatibility, and lifecycle concerns.
+  - Communicate a concrete implementation example with impact.
+keyConcepts:
+  - Extensions should be isolated, versioned, and minimally coupled.
+  - Security and permissions must be first-class requirements.
+  - Upgrade compatibility planning is part of extension design.
+workflowSteps:
+  - Define the capability gap and extension requirements.
+  - Choose extension points and data contracts.
+  - Implement with explicit permissions and input validation.
+  - Add automated tests and upgrade compatibility checks.
+  - Release with documentation and support plan.
+practiceExercise: Draft a plugin specification for reusable promotional banners with role-based publishing controls.
+pitfalls:
+  - Coupling extension logic directly to unstable internals.
+  - Missing backward compatibility planning.
+  - Shipping extension code without admin-level permission checks.
+quiz:
+  - question: What is a key sign of healthy plugin architecture?
+    answer: Clear boundaries with minimal dependence on private platform internals.
+    type: short
+    options: []
+  - question: Why should permissions be built into plugin design early?
+    answer: To prevent unauthorized actions and reduce security risk.
+    type: single
+    options:
+      - It can wait until after launch
+      - It is core to safe extension behavior
+      - It only matters for enterprise users
+  - question: What should accompany plugin releases on mature teams?
+    answer: Version notes, migration guidance, and rollback strategy.
+    type: short
+    options: []
+  - question: How do tests support long-term plugin health?
+    answer: They catch regressions during CMS upgrades and extension changes.
+    type: short
+    options: []
+  - question: What should an interview example include for this question?
+    answer: Problem context, architecture choices, and measurable impact of the extension.
+    type: short
+    options: []
+furtherReading:
+  - label: "WordPress Plugin Developer Handbook"
+    url: https://developer.wordpress.org/plugins/
+  - label: "Drupal: Creating Modules"
+    url: https://www.drupal.org/docs/develop/creating-modules
+  - label: "Strapi Plugin Development"
+    url: https://docs.strapi.io/cms/plugins-development
+caseStudy:
+  title: "Reusable Promotion Block Plugin"
+  context: "Marketing teams needed a reusable promotion block with approvals and scheduling in a CMS."
+  challenge: "Create plugin functionality that was secure, upgrade-safe, and easy for non-technical editors."
+  actions:
+    - "Designed plugin boundaries around stable CMS extension APIs."
+    - "Implemented role-based permissions for create, approve, and publish actions."
+    - "Added migration-safe schema versioning for future changes."
+    - "Documented operational playbooks for rollout and rollback."
+  result: "Campaign publishing became faster while maintaining governance and reducing one-off code customizations."
+visualAsset:
+  src: /visuals/cms-delivery-pipeline.svg
+  alt: "Pipeline for building and deploying CMS plugins safely."
+  caption: "Extension work succeeds when architecture, permissions, and lifecycle planning are aligned."
+estimatedMinutes: 40
+quizCount: 5
+status: complete
+---
+
+## Core Explanation
+Custom CMS modules and plugins should solve a clear business or editorial gap while remaining upgrade-safe. Strong implementation focuses on extension boundaries, permission models, and lifecycle management so the module remains maintainable through platform changes.
+
+## Code Examples
+```ts
+export function canPublishPromo(userRole: string): boolean {
+  return ['editor', 'admin'].includes(userRole);
+}
+```
+
+## Implementation Note
+If a plugin cannot be upgraded independently, it is likely too tightly coupled to core code.

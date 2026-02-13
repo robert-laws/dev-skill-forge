@@ -1,0 +1,40 @@
+---
+interface QuizItem {
+  question: string;
+  answer: string;
+  type: 'short' | 'single';
+  options: string[];
+}
+
+interface Props {
+  items?: QuizItem[];
+}
+
+const { items = [] } = Astro.props;
+---
+
+{
+  items.length > 0 && (
+    <section class="section-block panel">
+      <h2 class="section-title compact">Quick Self-Check</h2>
+      <ol class="quiz-list">
+        {items.map((item) => (
+          <li class="quiz-item">
+            <p class="quiz-question">{item.question}</p>
+            {item.type === 'single' && item.options.length > 0 && (
+              <ul class="quiz-options">
+                {item.options.map((option) => (
+                  <li>{option}</li>
+                ))}
+              </ul>
+            )}
+            <details>
+              <summary>Reveal answer</summary>
+              <p>{item.answer}</p>
+            </details>
+          </li>
+        ))}
+      </ol>
+    </section>
+  )
+}

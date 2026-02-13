@@ -1,0 +1,20 @@
+---
+interface Props {
+  steps?: string[];
+}
+
+const { steps = [] } = Astro.props;
+---
+
+{
+  steps.length > 0 && (
+    <section class="section-block">
+      <h2 class="section-title">Real-World Workflow</h2>
+      <ol class="content-list ordered">
+        {steps.map((step) => (
+          <li>{step}</li>
+        ))}
+      </ol>
+    </section>
+  )
+}

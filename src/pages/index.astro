@@ -1,0 +1,42 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProgressSummary from '../components/progress/ProgressSummary.astro';
+
+const modules = (await getCollection('modules')).sort((a, b) => a.data.id - b.data.id);
+const groupCount = new Set(modules.map((entry) => entry.data.group)).size;
+const withBase = (pathname: string) => `${import.meta.env.BASE_URL}${pathname.replace(/^\//, '')}`;
+---
+
+<BaseLayout
+  title="Dev Skill Forge"
+  description="Master practical front-end interview topics with 14 focused modules."
+>
+  <section class="hero">
+    <h1>Master real front-end interview topics through focused modules.</h1>
+    <p>
+      Learn CMS workflows, CSS systems, accessibility, debugging, and professional team practices.
+      Every module is built from a high-signal interview question and designed for practical use.
+    </p>
+    <div class="meta">
+      <span>{modules.length} modules</span>
+      <span>{groupCount} topic groups</span>
+    </div>
+  </section>
+
+  <ProgressSummary total={modules.length} />
+
+  <section>
+    <h2 class="section-title">Start Learning</h2>
+    <div class="card-grid">
+      {modules.map((module) => (
+        <a class="card" href={withBase(`/modules/${module.slug}`)}>
+          <span class="badge">Module {module.data.id}</span>
+          <h3>{module.data.title}</h3>
+          <p>{module.data.group}</p>
+          <p class="card-status" data-module-status={module.slug}>Not started</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

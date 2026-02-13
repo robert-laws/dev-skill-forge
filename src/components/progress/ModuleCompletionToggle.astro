@@ -1,0 +1,15 @@
+---
+interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props;
+---
+
+<section class="panel section-block">
+  <h2 class="section-title compact">Module Completion</h2>
+  <p data-module-toggle-status={slug}>Status: Not started</p>
+  <button class="module-toggle" data-module-toggle={slug} type="button" aria-pressed="false">
+    Mark as complete
+  </button>
+</section>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 320" role="img" aria-labelledby="title desc">
+  <title id="title">Learning decision cycle</title>
+  <desc id="desc">Cycle showing source intake, experiment, evaluate, adopt, and share stages.</desc>
+  <defs><style>.bg{fill:#f7f7f4}.n{fill:#fff;stroke:#d8d2c7;stroke-width:2;rx:10}.t{fill:#1e1d1b;font:600 14px 'IBM Plex Sans',Arial}.a{stroke:#0e7490;stroke-width:3;fill:none;marker-end:url(#m)}</style><marker id="m" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#0e7490"/></marker></defs>
+  <rect class="bg" width="900" height="320"/>
+  <rect class="n" x="40" y="120" width="140" height="72"/><text class="t" x="110" y="160" text-anchor="middle">Source Intake</text>
+  <rect class="n" x="220" y="40" width="140" height="72"/><text class="t" x="290" y="80" text-anchor="middle">Experiment</text>
+  <rect class="n" x="400" y="120" width="140" height="72"/><text class="t" x="470" y="160" text-anchor="middle">Evaluate</text>
+  <rect class="n" x="580" y="40" width="140" height="72"/><text class="t" x="650" y="80" text-anchor="middle">Adopt/Reject</text>
+  <rect class="n" x="760" y="120" width="120" height="72"/><text class="t" x="820" y="160" text-anchor="middle">Share</text>
+  <path class="a" d="M180 156 H216"/><path class="a" d="M360 76 H396"/><path class="a" d="M540 156 H576"/><path class="a" d="M720 76 H756"/>
+</svg>

@@ -1,0 +1,46 @@
+---
+import { getCollection, render } from 'astro:content';
+import ModuleLayout from '../../layouts/ModuleLayout.astro';
+import SpecificityDebuggerDemo from '../../components/demos/SpecificityDebuggerDemo.astro';
+import GridFlexChooserDemo from '../../components/demos/GridFlexChooserDemo.astro';
+import AccessibilityWalkthroughDemo from '../../components/demos/AccessibilityWalkthroughDemo.astro';
+
+export async function getStaticPaths() {
+  const modules = await getCollection('modules');
+  return modules.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry }
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const showSpecificityDemo = entry.slug === 'debugging-css-specificity';
+const showGridFlexDemo = entry.slug === 'css-grid-vs-flexbox';
+const showA11yDemo = entry.slug === 'html-accessibility-wcag';
+---
+
+<ModuleLayout
+  slug={entry.slug}
+  title={entry.data.title}
+  question={entry.data.question}
+  group={entry.data.group}
+  difficulty={entry.data.difficulty}
+  interviewSignal={entry.data.interviewSignal}
+  outcomes={entry.data.outcomes}
+  workflowSteps={entry.data.workflowSteps}
+  keyConcepts={entry.data.keyConcepts}
+  practiceExercise={entry.data.practiceExercise}
+  pitfalls={entry.data.pitfalls}
+  quiz={entry.data.quiz}
+  furtherReading={entry.data.furtherReading}
+  caseStudy={entry.data.caseStudy}
+  visualAsset={entry.data.visualAsset}
+  estimatedMinutes={entry.data.estimatedMinutes}
+  quizCount={entry.data.quizCount}
+>
+  <Content />
+  {showSpecificityDemo && <SpecificityDebuggerDemo />}
+  {showGridFlexDemo && <GridFlexChooserDemo />}
+  {showA11yDemo && <AccessibilityWalkthroughDemo />}
+</ModuleLayout>

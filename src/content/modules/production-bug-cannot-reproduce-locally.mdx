@@ -1,0 +1,92 @@
+---
+id: 14
+title: Handling Production Bugs You Cannot Reproduce Locally
+question: You deploy code to production and a user reports a bug, but you cannot reproduce it on your local machine. What do you do?
+group: Workflow, Reliability & Collaboration
+difficulty: Advanced
+interviewSignal: Tests production debugging maturity, observability usage, and communication under uncertainty.
+outcomes:
+  - Use evidence-driven triage for non-reproducible production issues.
+  - Narrow unknowns with environment parity and telemetry.
+  - Deliver mitigation and stakeholder updates while investigating.
+keyConcepts:
+  - Non-reproducible does not mean non-real; treat user reports as signals with missing context.
+  - Production telemetry is often the fastest route to narrowing unknowns.
+  - Mitigation and communication should run in parallel with root-cause analysis.
+workflowSteps:
+  - "Capture exact report details: browser, device, account type, timestamps, and user actions."
+  - Correlate report timing with deploy version, feature flags, and runtime logs.
+  - Reproduce against production-like environments using the same data and config state.
+  - Introduce targeted instrumentation if current telemetry is insufficient.
+  - Deploy mitigation (flag off, rollback, guard clause) when user impact is ongoing.
+  - Publish findings and prevention tasks after resolution.
+practiceExercise: Draft a triage runbook for an intermittent checkout bug affecting only mobile Safari users on slow networks.
+pitfalls:
+  - Dismissing reports because local reproduction fails.
+  - Waiting for perfect certainty before communicating status.
+  - Shipping speculative fixes without observability checkpoints.
+quiz:
+  - question: A user-only bug appears in production and cannot be reproduced locally. What is your first priority?
+    answer: Gather high-fidelity incident context and validate scope before attempting blind fixes.
+    type: short
+    options: []
+  - question: Which data set most often helps narrow production-only frontend bugs fastest?
+    answer: Deploy metadata, logs/traces, client environment details, and session-level telemetry.
+    type: short
+    options: []
+  - question: When should rollback or feature disablement be considered?
+    answer: As soon as ongoing user impact is significant and mitigation risk is lower than waiting.
+    type: short
+    options: []
+  - question: What communication pattern is expected during this incident?
+    answer: Frequent, evidence-based updates with current impact, actions taken, and next checkpoints.
+    type: short
+    options: []
+  - question: Which approach is least reliable?
+    answer: Pushing guessed fixes without reproducible evidence or telemetry support.
+    type: single
+    options:
+      - Capturing environment details
+      - Adding temporary instrumentation
+      - Shipping guessed fixes immediately
+furtherReading:
+  - label: "Google SRE: Monitoring Distributed Systems"
+    url: https://sre.google/sre-book/monitoring-distributed-systems/
+  - label: "MDN: HTTP caching"
+    url: https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching
+  - label: "web.dev: Optimize long tasks"
+    url: https://web.dev/articles/optimize-long-tasks
+caseStudy:
+  title: "Intermittent Mobile Checkout Failure"
+  context: "Users on specific mobile devices reported intermittent checkout failures not reproducible in local development."
+  challenge: "Mitigate user impact quickly while narrowing a highly environment-dependent bug."
+  actions:
+    - "Collected high-fidelity session details and correlated them with release metadata."
+    - "Added temporary telemetry for network timing and feature-flag state."
+    - "Reproduced conditions in a production-like environment with throttled network."
+    - "Shipped a feature-flag mitigation while root cause fix was validated."
+  result: "User impact was reduced rapidly and the final fix shipped with improved observability for future incidents."
+visualAsset:
+  src: /visuals/workflow-reliability-loop.svg
+  alt: "Cycle for investigating and mitigating production-only bugs."
+  caption: "Production debugging works best as an evidence-driven loop, not a one-shot fix attempt."
+estimatedMinutes: 40
+quizCount: 5
+status: complete
+---
+
+## Core Explanation
+Production-only issues usually come from environment mismatches, hidden data-state assumptions, feature-flag combinations, or browser-specific behavior. A strong process focuses on evidence first: scope the impact, correlate signals with deploy changes, reproduce under realistic conditions, and apply mitigation quickly when impact is active.
+
+## Code Examples
+```ts
+console.error('checkout_error', {
+  release: window.__APP_RELEASE__,
+  path: window.location.pathname,
+  userAgent: navigator.userAgent,
+  featureFlags: window.__FEATURE_FLAGS__
+});
+```
+
+## Incident Note
+The fastest teams avoid binary thinking ("reproduced" vs "not real") and instead reduce uncertainty step by step.
