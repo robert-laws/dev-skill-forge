@@ -1,0 +1,61 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const withBase = (pathname: string) => `${import.meta.env.BASE_URL}${pathname.replace(/^\//, '')}`;
+const modules = (await getCollection('modules')).sort((a, b) => a.data.id - b.data.id).slice(0, 4);
+---
+
+<BaseLayout title="Page Not Found | Dev Skill Forge" description="The page you requested could not be found.">
+  <section class="hero">
+    <p class="badge">Error 404</p>
+    <h1>That page does not exist.</h1>
+    <p>
+      The link may be outdated or the URL may be incorrect. Use the shortcuts below to jump back into
+      the learning modules.
+    </p>
+    <div class="meta">
+      <span>14 complete modules available</span>
+      <span>Interactive demos included</span>
+    </div>
+  </section>
+
+  <section class="panel section-block">
+    <h2 class="section-title compact">Quick Recovery</h2>
+    <div class="card-grid">
+      <a class="card" href={withBase('/')}>
+        <span class="badge">Home</span>
+        <h3>Return to Homepage</h3>
+        <p>Overview, progress tracker, and all module entry points.</p>
+      </a>
+      <a class="card" href={withBase('/modules')}>
+        <span class="badge">Modules</span>
+        <h3>Browse All Modules</h3>
+        <p>View the full 14-question curriculum by topic group.</p>
+      </a>
+      <a class="card" href={withBase('/modules/debugging-css-specificity')}>
+        <span class="badge">Demo</span>
+        <h3>Try Specificity Debugging</h3>
+        <p>Hands-on CSS debugging practice with live feedback.</p>
+      </a>
+      <a class="card" href={withBase('/modules/html-accessibility-wcag')}>
+        <span class="badge">A11y</span>
+        <h3>Start Accessibility Module</h3>
+        <p>WCAG workflows, tools, and keyboard-first validation.</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="section-block">
+    <h2 class="section-title">Recommended Starting Modules</h2>
+    <div class="card-grid">
+      {modules.map((module) => (
+        <a class="card" href={withBase(`/modules/${module.slug}`)}>
+          <span class="badge">Module {module.data.id}</span>
+          <h3>{module.data.title}</h3>
+          <p>{module.data.question}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
