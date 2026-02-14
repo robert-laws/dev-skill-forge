@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
+  <title id="title">Accessibility audit panel mockup</title>
+  <desc id="desc">Mock WCAG audit interface with checklist and score panel.</desc>
+  <rect width="1200" height="680" fill="#f4f6f3"/>
+  <rect x="30" y="30" width="1140" height="620" rx="18" fill="#ffffff" stroke="#cbd8dd"/>
+  <rect x="70" y="80" width="700" height="520" rx="12" fill="#f8fbfc" stroke="#cbd8dd"/>
+  <rect x="800" y="80" width="330" height="520" rx="12" fill="#eef5f7"/>
+  <g fill="#4f6572">
+    <rect x="110" y="130" width="610" height="16" rx="8"/>
+    <rect x="110" y="170" width="560" height="12" rx="6"/>
+    <rect x="110" y="220" width="600" height="14" rx="7"/>
+    <rect x="110" y="260" width="520" height="12" rx="6"/>
+    <rect x="110" y="310" width="585" height="14" rx="7"/>
+  </g>
+  <circle cx="965" cy="180" r="95" fill="#d1fae5"/>
+  <text x="965" y="198" font-size="54" text-anchor="middle" fill="#065f46" font-family="IBM Plex Sans, Arial" font-weight="700">94%</text>
+  <rect x="845" y="315" width="240" height="42" rx="10" fill="#d1fae5"/>
+  <rect x="845" y="375" width="240" height="42" rx="10" fill="#fef3c7"/>
+  <rect x="845" y="435" width="240" height="42" rx="10" fill="#fee2e2"/>
+</svg>

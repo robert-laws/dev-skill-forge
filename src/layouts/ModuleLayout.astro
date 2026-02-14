@@ -7,7 +7,6 @@ import PitfallsPanel from '../components/module/PitfallsPanel.astro';
 import QuizBlock from '../components/module/QuizBlock.astro';
 import ReadingLinks from '../components/module/ReadingLinks.astro';
 import CaseStudyPanel from '../components/module/CaseStudyPanel.astro';
-import VisualAssetPanel from '../components/module/VisualAssetPanel.astro';
 import ModuleCompletionToggle from '../components/progress/ModuleCompletionToggle.astro';
 
 interface QuizItem {
@@ -28,6 +27,11 @@ interface CaseStudy {
   challenge: string;
   actions: string[];
   result: string;
+  screenshot?: {
+    src: string;
+    alt: string;
+    caption: string;
+  };
 }
 
 interface VisualAsset {
@@ -75,6 +79,7 @@ const {
   caseStudy,
   visualAsset
 } = Astro.props;
+const withBase = (pathname: string) => `${import.meta.env.BASE_URL}${pathname.replace(/^\//, '')}`;
 ---
 
 <BaseLayout title={`${title} | Dev Skill Forge`} description={question}>
@@ -91,7 +96,7 @@ const {
 
     <ModuleCompletionToggle slug={slug} />
 
-    <section class="panel">
+    <section class="panel section-block">
       <h2>Interview Signal</h2>
       <p>{interviewSignal}</p>
     </section>
@@ -103,11 +108,28 @@ const {
       </ul>
     </section>
 
-    <section class="section-block module-body">
-      <slot />
+    <section class={`section-block module-body ${visualAsset ? 'module-body-split' : ''}`}>
+      <div class="module-body-copy">
+        <slot />
+      </div>
+      {
+        visualAsset && (
+          <aside class="inline-illustration panel">
+            <h2 class="section-title compact">Core Illustration</h2>
+            <figure class="module-figure compact">
+              <img
+                src={withBase(visualAsset.src)}
+                alt={visualAsset.alt}
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption>{visualAsset.caption}</figcaption>
+            </figure>
+          </aside>
+        )
+      }
     </section>
 
-    <VisualAssetPanel visualAsset={visualAsset} />
     <CaseStudyPanel caseStudy={caseStudy} />
     <WorkflowSteps steps={workflowSteps} />
     <KeyConceptsList concepts={keyConcepts} />

@@ -5,6 +5,33 @@ import ProgressSummary from '../../components/progress/ProgressSummary.astro';
 
 const modules = (await getCollection('modules')).sort((a, b) => a.data.id - b.data.id);
 const withBase = (pathname: string) => `${import.meta.env.BASE_URL}${pathname.replace(/^\//, '')}`;
+const groupHeroMeta: Record<string, { image: string; description: string }> = {
+  'CMS & Theming': {
+    image: '/visuals/cms-delivery-pipeline.svg',
+    description:
+      'Content architecture, plugin/module extension, and theming workflows that scale with editorial teams.'
+  },
+  'Project Experience & Problem Solving': {
+    image: '/visuals/project-story-arc.svg',
+    description:
+      'Structured storytelling and real problem-solving examples that demonstrate ownership and impact.'
+  },
+  'CSS Fundamentals & Systems': {
+    image: '/visuals/grid-flex-decision-map.svg',
+    description:
+      'Layout systems, specificity debugging, and maintainable styling strategy for production interfaces.'
+  },
+  'Accessibility & Standards': {
+    image: '/visuals/a11y-audit-loop.svg',
+    description:
+      'WCAG-focused workflows combining semantic HTML, automated checks, and manual assistive-tech testing.'
+  },
+  'Workflow, Reliability & Collaboration': {
+    image: '/visuals/workflow-reliability-loop.svg',
+    description:
+      'Incident response, communication discipline, and production debugging strategies for resilient delivery.'
+  }
+};
 
 const modulesByGroup = modules.reduce<Record<string, typeof modules>>((acc, entry) => {
   const group = entry.data.group;
@@ -18,12 +45,16 @@ const modulesByGroup = modules.reduce<Record<string, typeof modules>>((acc, entr
 
 <BaseLayout title="All Modules | Dev Skill Forge">
   <h1>Modules</h1>
-  <p>All 14 interview-driven modules are pre-wired. Initial entries are structured stubs for content authoring.</p>
+  <p>All 14 interview-driven modules are complete and grouped by practical front-end competency areas.</p>
   <ProgressSummary total={modules.length} />
 
   {Object.entries(modulesByGroup).map(([group, entries]) => (
     <section>
       <h2 class="section-title">{group}</h2>
+      <div class="topic-hero panel">
+        <img src={withBase(groupHeroMeta[group].image)} alt={group} loading="lazy" decoding="async" />
+        <p>{groupHeroMeta[group].description}</p>
+      </div>
       <div class="card-grid">
         {entries.map((entry) => (
           <a class="card" href={withBase(`/modules/${entry.slug}`)}>

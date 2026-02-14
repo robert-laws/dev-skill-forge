@@ -6,6 +6,26 @@ import ProgressSummary from '../components/progress/ProgressSummary.astro';
 const modules = (await getCollection('modules')).sort((a, b) => a.data.id - b.data.id);
 const groupCount = new Set(modules.map((entry) => entry.data.group)).size;
 const withBase = (pathname: string) => `${import.meta.env.BASE_URL}${pathname.replace(/^\//, '')}`;
+const featuredVisuals = [
+  {
+    title: 'Specificity Debug Flow',
+    description: 'Step through CSS cascade debugging with a visual workflow.',
+    src: '/visuals/specificity-debug-flow.svg',
+    href: '/modules/debugging-css-specificity'
+  },
+  {
+    title: 'Grid vs Flex Decision Map',
+    description: 'Use layout intent to choose the right system quickly.',
+    src: '/visuals/grid-flex-decision-map.svg',
+    href: '/modules/css-grid-vs-flexbox'
+  },
+  {
+    title: 'Accessibility Audit Loop',
+    description: 'Combine automated checks and manual validation effectively.',
+    src: '/visuals/a11y-audit-loop.svg',
+    href: '/modules/html-accessibility-wcag'
+  }
+];
 ---
 
 <BaseLayout
@@ -25,6 +45,20 @@ const withBase = (pathname: string) => `${import.meta.env.BASE_URL}${pathname.re
   </section>
 
   <ProgressSummary total={modules.length} />
+
+  <section class="section-block visual-gallery">
+    <h2 class="section-title">Learn Visually</h2>
+    <p>Each flagship module includes diagrams and interactive walkthroughs to make concepts stick.</p>
+    <div class="visual-grid">
+      {featuredVisuals.map((item) => (
+        <a class="visual-card" href={withBase(item.href)}>
+          <img src={withBase(item.src)} alt={item.title} loading="lazy" decoding="async" />
+          <h3>{item.title}</h3>
+          <p>{item.description}</p>
+        </a>
+      ))}
+    </div>
+  </section>
 
   <section>
     <h2 class="section-title">Start Learning</h2>

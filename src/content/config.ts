@@ -17,7 +17,14 @@ const caseStudySchema = z.object({
   context: z.string().min(1),
   challenge: z.string().min(1),
   actions: z.array(z.string().min(1)).min(1),
-  result: z.string().min(1)
+  result: z.string().min(1),
+  screenshot: z
+    .object({
+      src: z.string().min(1),
+      alt: z.string().min(1),
+      caption: z.string().min(1)
+    })
+    .optional()
 });
 
 const visualAssetSchema = z.object({
