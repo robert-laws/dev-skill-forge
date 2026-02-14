@@ -6,6 +6,7 @@ import ProgressSummary from '../components/progress/ProgressSummary.astro';
 const modules = (await getCollection('modules')).sort((a, b) => a.data.id - b.data.id);
 const groupCount = new Set(modules.map((entry) => entry.data.group)).size;
 const withBase = (pathname: string) => `${import.meta.env.BASE_URL}${pathname.replace(/^\//, '')}`;
+const homeHeroPhoto = withBase('/images/hero/dev-skill-forge-hero-photo.jpg');
 const featuredVisuals = [
   {
     title: 'Specificity Debug Flow',
@@ -33,6 +34,14 @@ const featuredVisuals = [
   description="Master practical front-end interview topics with 14 focused modules."
 >
   <section class="hero">
+    <div
+      class="hero-photo"
+      style={`--hero-photo-image: url('${homeHeroPhoto}');`}
+      role="img"
+      aria-label="Modern front-end workspace with code on screen, notebooks, and collaborative planning artifacts."
+    >
+      <p class="hero-kicker">Interview prep with delivery-level realism</p>
+    </div>
     <h1>Master real front-end interview topics through focused modules.</h1>
     <p>
       Learn CMS workflows, CSS systems, accessibility, debugging, and professional team practices.
