@@ -25,15 +25,15 @@ const withBase = (pathname: string) => `${import.meta.env.BASE_URL}${pathname.re
     <section class="section-block panel">
       <h2 class="section-title compact">Real-World Case Study</h2>
       <p><strong>{caseStudy.title}</strong></p>
-      <p><strong>Context:</strong> {caseStudy.context}</p>
-      <p><strong>Challenge:</strong> {caseStudy.challenge}</p>
+      <p><strong>Context:</strong>{" "}{caseStudy.context}</p>
+      <p><strong>Challenge:</strong>{" "}{caseStudy.challenge}</p>
       <p><strong>Actions Taken:</strong></p>
       <ul class="content-list">
         {caseStudy.actions.map((action) => (
           <li>{action}</li>
         ))}
       </ul>
-      <p><strong>Result:</strong> {caseStudy.result}</p>
+      <p><strong>Result:</strong>{" "}{caseStudy.result}</p>
       {
         caseStudy.screenshot && (
           <figure class="case-study-shot">
